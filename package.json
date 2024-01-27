@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start -p 3001",
+    "start": "next start -p 4000",
     "lint": "next lint",
     "pm2:build": "npm run build && pm2 start npm --name watchvideo_frontend -- run start"
   },

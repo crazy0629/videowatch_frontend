@@ -83,11 +83,11 @@ export const AdsDetailsSection: React.FC = () => {
                 <h2>
                   Share Link:{" "}
                   <CopyToClipboard
-                    text={`http://3.89.134.159:3001/ads/${id}?shared=${authContext?.user?.id}`}
+                    text={`http://3.89.134.159:4000/ads/${id}?shared=${authContext?.user?.id}`}
                     onCopy={handleCopyClick}
                   >
                     <span>
-                      http://3.89.134.159:3001/ads/{id}?shared=
+                      http://3.89.134.159:4000/ads/{id}?shared=
                       {authContext?.user?.id}
                     </span>
                   </CopyToClipboard>
