@@ -181,7 +181,7 @@ export const MyPosts: React.FC = () => {
               endMessage={<h4></h4>}
               loader={<h4>Loading...</h4>}
             >
-              {data.map((item: any, key: number) => (
+              {/* {data.map((item: any, key: number) => (
                 <CardItem
                   id={item.adId._id}
                   key={key}
@@ -205,7 +205,7 @@ export const MyPosts: React.FC = () => {
                   viewCount={item.viewCount}
                   duration={item.adId?.duration}
                 />
-              ))}
+              ))} */}
             </InfiniteScroll>
           ) : (
             <h4>No Data</h4>

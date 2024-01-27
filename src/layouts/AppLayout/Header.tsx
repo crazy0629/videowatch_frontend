@@ -115,10 +115,10 @@ export const Header: React.FC = () => {
           </Styled.AuthActionButton>
           {currentUser ? (
             <Styled.AuthListWrapper visible={visible ? "true" : undefined}>
-              <Link href={"/profile"}>
+              {/* <Link href={"/profile"}>
                 <TbUser size={24} />
                 <span>Profile</span>
-              </Link>
+              </Link> */}
               <p onClick={handleLogout}>
                 <TbLogout size={24} />
                 <span>Logout</span>

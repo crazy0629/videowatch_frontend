@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start -p 30001",
-    "lint": "next lint"
+    "start": "next start -p 3001",
+    "lint": "next lint",
+    "pm2:build": "npm run build && pm2 start npm --name watchvideo_frontend -- run start"
   },
   "dependencies": {
     "@types/node": "20.6.3",
