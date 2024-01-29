@@ -1,65 +1,106 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Styled from "./upload.styles";
-import { SERVER_UPLOAD_URI, SERVER_URI } from "@/config";
+import { SERVER_URI } from "@/config";
 import { MdOutlineContentCopy, MdCheck } from "react-icons/md";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ForSaleForm } from "./detailsform";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 type Props = {
-  adLink: string;
-  adId: string;
-  category: string;
-  onNext: () => void;
+  onSave: () => void;
+  refresh: boolean;
 };
 
-export const Details: React.FC<Props> = ({ adLink, adId, onNext }) => {
+export const Details: React.FC<Props> = ({ onSave, refresh }) => {
   const [copied, setCopied] = useState(false);
+  const [form, setForm] = useState({
+    videoLink: "",
+    title: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    setForm({ videoLink: "", title: "", description: "" });
+    setCopied(false);
+  }, [refresh]);
 
   const handleCopyClick = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 3000);
+    setCopied((prev) => !prev);
   };
 
-  const handleForSaleFormSave = async (data: any) => {
-    const res = await axios.post(`${SERVER_URI}/upload/detail`, {
-      ...data,
-      videoId: adId,
-    });
-    if (res.data.success) {
-      toast.success(res.data.message);
-      onNext();
+  const handleSave = async () => {
+    if (!form.title) {
+      toast.error("Enter the title!");
+    } else if (!form.description) {
+      toast.error("Enter the description!");
+    } else if (!form.videoLink) {
+      toast.error("Paste your youtube video link.");
+      setCopied(true);
     } else {
-      toast.error(res.data.message);
+      const res = await axios.post(`${SERVER_URI}/upload/detail`, form);
+      if (res.data.success) {
+        toast.success(res.data.message);
+        onSave();
+      } else {
+        toast.error(res.data.message);
+      }
     }
   };
 
   return (
     <Styled.DetailsWrapper>
       <Styled.DetailsFormWrapper>
-        <ForSaleForm onSave={handleForSaleFormSave} />
+        <Styled.FormContainer>
+          <Styled.TextAreaFormItem height={80}>
+            <p>{"Title (required)"}</p>
+            <textarea
+              placeholder="Tell viewer about the video title."
+              onChange={(e) =>
+                e.target.value.length <= 100 &&
+                setForm((prev) => ({ ...prev, title: e.target.value }))
+              }
+              value={form.title}
+            ></textarea>
+            <span>{form.title.length} / 100</span>
+          </Styled.TextAreaFormItem>
+          <Styled.TextAreaFormItem height={120}>
+            <p>{"Description"}</p>
+            <textarea
+              placeholder="Tell viewer about the video."
+              onChange={(e) =>
+                e.target.value.length <= 100 &&
+                setForm((prev) => ({ ...prev, description: e.target.value }))
+              }
+              value={form.description}
+            ></textarea>
+            <span>{form.description.length} / 5000</span>
+          </Styled.TextAreaFormItem>
+          <Styled.SaveButton onClick={handleSave}>Save</Styled.SaveButton>
+        </Styled.FormContainer>
       </Styled.DetailsFormWrapper>
       <Styled.DetailsPreviewWrapper>
         <Styled.VideoWrapper>
-          <video src={SERVER_UPLOAD_URI + adLink} controls />
+          <video src={form.videoLink} controls />
           <Styled.VideoInfoWrapper>
             <div>
-              <span>Video Link</span>
-              <p>{SERVER_UPLOAD_URI + adLink}</p>
-            </div>
-            <CopyToClipboard
-              text={SERVER_UPLOAD_URI + adLink}
-              onCopy={handleCopyClick}
-            >
-              {copied ? (
-                <MdCheck size={20} />
+              <span>Paste here your youtube link</span>
+              {!copied ? (
+                <p>{form.videoLink}</p>
               ) : (
-                <MdOutlineContentCopy size={20} />
+                <input
+                  type="text"
+                  placeholder="https://"
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, videoLink: e.target.value }))
+                  }
+                  value={form.videoLink}
+                />
               )}
-            </CopyToClipboard>
+            </div>
+            {copied ? (
+              <MdCheck size={20} onClick={handleCopyClick} />
+            ) : (
+              <MdOutlineContentCopy size={20} onClick={handleCopyClick} />
+            )}
           </Styled.VideoInfoWrapper>
         </Styled.VideoWrapper>
       </Styled.DetailsPreviewWrapper>

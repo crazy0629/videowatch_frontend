@@ -1,12 +1,7 @@
 import React, { useRef } from "react";
 import * as Styled from "./card.styles";
-import { SERVER_UPLOAD_URI } from "@/config";
-import Image from "next/image";
-import { Rating } from "react-simple-star-rating";
-import { MdLocationOn } from "react-icons/md";
-import { BsClock } from "react-icons/bs";
 import { VideoPlayIcon } from "..";
-import { calcCompareTime, getTimestamp } from "@/utils";
+import { getTimestamp } from "@/utils";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -21,7 +16,6 @@ type Props = {
 export const CardItem: React.FC<Props> = ({
   link,
   id,
-  postDate,
   duration = 0,
   title,
   viewCount,
@@ -39,7 +33,7 @@ export const CardItem: React.FC<Props> = ({
         }}
         onClick={() => router.push(`/ads/${id}`)}
       >
-        <video ref={videoRef} src={`${SERVER_UPLOAD_URI + link}`} muted></video>
+        <video ref={videoRef} src={`${link}`} muted></video>
         <VideoPlayIcon />
         <span>{getTimestamp(Number(duration))}</span>
       </Styled.VideoWrapper>

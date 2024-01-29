@@ -1,11 +1,11 @@
 import React from "react";
 import { AppLayout } from "@/layouts";
-import { SalesPageSection } from "@/modules/main/ForSales";
+import { MainPageSection } from "@/modules/main";
 
 const Home: React.FC = () => {
   return (
     <AppLayout name="home">
-      <SalesPageSection />
+      <MainPageSection />
     </AppLayout>
   );
 };

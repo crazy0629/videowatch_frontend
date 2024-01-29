@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import { IoMdMenu } from "react-icons/io";
 import { PiUploadSimple } from "react-icons/pi";
-import { TbLogin, TbUserPlus, TbUser, TbLogout, TbUsers } from "react-icons/tb";
+import { TbLogin, TbUserPlus, TbUser, TbLogout } from "react-icons/tb";
 import * as Styled from "./layout.styles";
 import Link from "next/link";
 import { Auth as AuthContext } from "@/context/contexts";
 import { useRouter } from "next/router";
-import { ADMIN_INFO, SERVER_URI } from "@/config";
-import { toast } from "react-toastify";
+import { ADMIN_INFO } from "@/config";
 import { UploadModal } from "@/modules/upload";
 import { ConfirmModal } from "@/components";
-import axios from "axios";
 
 export const Header: React.FC = () => {
   const router = useRouter();
@@ -18,22 +15,16 @@ export const Header: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [uploadModal, setUploadModal] = useState(false);
   const [uploadCancelModal, setUploadCancelModal] = useState(false);
-  const [uploadInfo, setUploadInfo] = useState({ adId: "", adType: "" });
   const { authContext, setAuthContext } = useContext<any>(AuthContext);
   const wrapperRef = useRef<any>(null);
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
     const handleClickOutside = (event: any) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setVisible(false);
       }
     };
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
@@ -57,18 +48,8 @@ export const Header: React.FC = () => {
   };
 
   const handleUploadCancel = async () => {
-    if (uploadInfo.adId) {
-      const res = await axios.post(`${SERVER_URI}/upload/cancel`, uploadInfo);
-      if (res.data.success) {
-        setUploadModal(false);
-      } else {
-        toast.error(res.data.message);
-      }
-      setUploadCancelModal(false);
-    } else {
-      setUploadModal(false);
-      setUploadCancelModal(false);
-    }
+    setUploadModal(false);
+    setUploadCancelModal(false);
   };
 
   return (
@@ -85,8 +66,7 @@ export const Header: React.FC = () => {
       />
       <UploadModal
         open={uploadModal}
-        onClose={(adId, adType) => {
-          setUploadInfo({ adId, adType });
+        onClose={() => {
           setUploadCancelModal(true);
         }}
         onFinish={() => setUploadModal(false)}
@@ -100,11 +80,7 @@ export const Header: React.FC = () => {
             <PiUploadSimple size={24} onClick={handleUploadClick} />
           </div>
         )}
-        {/* {currentUser?.username === ADMIN_INFO && (
-          <div className="icon-wrapper">
-            <TbUsers size={24} />
-          </div>
-        )} */}
+        {currentUser?.point && <p>Score: {currentUser?.point}</p>}
         <Styled.AuthActionWrapper ref={wrapperRef}>
           <Styled.AuthActionButton onClick={() => setVisible((prev) => !prev)}>
             {currentUser ? (
@@ -115,10 +91,6 @@ export const Header: React.FC = () => {
           </Styled.AuthActionButton>
           {currentUser ? (
             <Styled.AuthListWrapper visible={visible ? "true" : undefined}>
-              {/* <Link href={"/profile"}>
-                <TbUser size={24} />
-                <span>Profile</span>
-              </Link> */}
               <p onClick={handleLogout}>
                 <TbLogout size={24} />
                 <span>Logout</span>

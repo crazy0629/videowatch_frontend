@@ -35,12 +35,7 @@ export const LoginForm: React.FC = () => {
           isRemember
         );
         if (isSet) {
-          // console.log(localStorage.shared, localStorage.token);
-          // if (localStorage.shared) {
-          //   router.push(localStorage.shared);
-          // } else {
           router.push("/");
-          // }
         }
       } else {
         toast.error(res.data.message);

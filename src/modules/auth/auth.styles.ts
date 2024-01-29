@@ -89,40 +89,6 @@ export const LoginFormGroup = styled.div`
   }
 `;
 
-export const RememberMeWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 32px;
-  label {
-    display: flex;
-    align-items: center;
-    input {
-      width: 15px;
-      height: 15px;
-      margin-right: 8px;
-      accent-color: #ff6f00;
-    }
-    span {
-      color: #000;
-
-      font-size: 12px;
-      font-weight: 400;
-      line-height: normal;
-    }
-  }
-  p {
-    color: #ff6f00;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 400;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
 export const SignInButton = styled.div`
   display: flex;
   align-items: center;
@@ -139,55 +105,5 @@ export const SignInButton = styled.div`
   line-height: 20.4px; /* 145.714% */
   &.resend {
     max-width: 470px;
-  }
-`;
-
-export const OrDivider = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 32px 0;
-  color: #000;
-
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20.4px; /* 145.714% */
-  &::before,
-  &::after {
-    content: "";
-    width: 30%;
-    height: 1px;
-    background: #000;
-  }
-`;
-
-export const ResendFormWrapper = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  h1 {
-    color: #000;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 32px;
-  }
-  p {
-    color: #595151;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20.4px; /* 145.714% */
-    margin-bottom: 48px;
-  }
-  h3 {
-    color: #000;
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
-    margin-top: 32px;
-    line-height: 20.4px; /* 145.714% */
   }
 `;

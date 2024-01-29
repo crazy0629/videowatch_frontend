@@ -8,7 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { TbUser, TbUsers } from "react-icons/tb";
 import { useRouter } from "next/router";
 
-export const SalesPageSection: React.FC = () => {
+export const MainPageSection: React.FC = () => {
   const router = useRouter();
   const [getIndex, setGetIndex] = useState(0);
   const [data, setData] = useState<any>([]);
@@ -52,59 +52,6 @@ export const SalesPageSection: React.FC = () => {
 
   return (
     <Styled.MainPageSectionWrapper>
-      {/* <Styled.FilterWrapper>
-        <MultiSelection
-          data={[
-            "Appliances",
-            "Art & Crafts",
-            "Audio & Stereo Equipment",
-            "Automotive Items & Parts",
-            "Baby & Kids Stuff",
-            "Bicycles",
-            "Books ,Comics & Magazines",
-            "Cameras & Photography Equipment",
-            "Christmas Decorations",
-            "Clothes, Shoes & Accessories",
-            "Collectibles &  Sports Memorabilia",
-            "Computers,Tablets, Software  & Hardware",
-            "DIY Tools & Materials",
-            "Freebies",
-            "Health & Beauty",
-            "Heavy Equipment",
-            "Home & Garden",
-            "Household & Furniture",
-            "Jewellery & Watches",
-            "Films & TV",
-            "Music & CDs",
-            "Musical Instruments & DJ Equipment",
-            "Office Furniture & Equipment",
-            "Mobile Phones, Smart Watches & Accessories",
-            "Sports, Leisure & Travel",
-            "Stuff Wanted",
-            "Tickets",
-            " Video Games & Consoles",
-            "Food & Drink",
-            "Tyres",
-            "Toys & Hobbies",
-            "Digital Goods",
-          ]}
-          placeholder="Select Item Category"
-          value={filter.itemCategory}
-          onChange={(value) =>
-            setFilter((prev) => ({ ...prev, itemCategory: value }))
-          }
-        />
-        <MultiSelection
-          data={["New", "Refurbished", "Used", "For parts or not working"]}
-          placeholder="Select Item Condition"
-          value={filter.itemCondition}
-          onChange={(value) =>
-            setFilter((prev) => ({ ...prev, itemCondition: value }))
-          }
-        />
-
-        <button onClick={() => getData(0)}>Search</button>
-      </Styled.FilterWrapper> */}
       <Styled.MainGridWrapper>
         <InfiniteScroll
           dataLength={data.length}

@@ -11,23 +11,11 @@ export const seo_lists: { [any: string]: ISeoProps } = {
     description: "",
     image: "",
   },
-  profile: {
-    title: "",
-    description: "",
-    image: "",
-  },
   home: {
     title: "",
     description: "",
     image: "",
   },
-  estate: {
-    title: "",
-    description: "",
-    image: "",
-  },
-  truck: { title: "", description: "", image: "" },
-  jobs: { title: "", description: "", image: "" },
   ads_details: {
     title: "",
     description: "",

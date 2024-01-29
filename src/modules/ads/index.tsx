@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as Styled from "./ads.styles";
-import { SERVER_UPLOAD_URI, SERVER_URI } from "@/config";
+import { INIT_URL, SERVER_URI } from "@/config";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ export const AdsDetailsSection: React.FC = () => {
   const { id, shared } = router.query;
   const [data, setData] = useState<any>(null);
   const { authContext } = useContext<any>(AuthContext);
+  const [isPlayed, setIsPlayed] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -30,17 +31,11 @@ export const AdsDetailsSection: React.FC = () => {
   }, [authContext, id]);
 
   const getData = async () => {
-    console.log({
-      videoId: id,
-      userId: authContext.user.id,
-      shared: shared || "",
-    });
     const res = await axios.post(`${SERVER_URI}/video/getDetailInfo`, {
       videoId: id,
       userId: authContext.user.id,
       shared: shared || "",
     });
-    console.log(res.data);
     if (res.data.success) {
       setData(res.data.data);
     } else {
@@ -52,6 +47,15 @@ export const AdsDetailsSection: React.FC = () => {
     toast.success("Copied Link.");
   };
 
+  const handlePlayClick = async () => {
+    if (!isPlayed) {
+      setIsPlayed(true);
+      const res = await axios.post(`${SERVER_URI}/auth/addPoint`, {
+        userId: authContext.user.id,
+      });
+    }
+  };
+
   return (
     <Styled.AdsDetailsSectionWrapper>
       {data ? (
@@ -59,8 +63,9 @@ export const AdsDetailsSection: React.FC = () => {
           <Styled.AdsDetailsVideoInfoWrapper>
             <Styled.VideoWrapper>
               <video
-                src={`${SERVER_UPLOAD_URI + data?.adFileName}`}
+                src={`${data?.adFileName}`}
                 controls
+                onPlay={handlePlayClick}
               ></video>
             </Styled.VideoWrapper>
           </Styled.AdsDetailsVideoInfoWrapper>
@@ -83,11 +88,12 @@ export const AdsDetailsSection: React.FC = () => {
                 <h2>
                   Share Link:{" "}
                   <CopyToClipboard
-                    text={`http://3.89.134.159:4000/ads/${id}?shared=${authContext?.user?.id}`}
+                    // text={`http://3.89.134.159:3001/ads/${id}?shared=${authContext?.user?.id}`}
+                    text={`${INIT_URL}/ads/${id}?shared=${authContext?.user?.id}`}
                     onCopy={handleCopyClick}
                   >
                     <span>
-                      http://3.89.134.159:4000/ads/{id}?shared=
+                      {INIT_URL}/ads/{id}?shared=
                       {authContext?.user?.id}
                     </span>
                   </CopyToClipboard>
