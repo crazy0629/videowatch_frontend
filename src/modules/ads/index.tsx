@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { Auth as AuthContext } from "@/context/contexts";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import YouTube from "react-youtube";
 
 export const AdsDetailsSection: React.FC = () => {
   const router = useRouter();
@@ -62,11 +63,21 @@ export const AdsDetailsSection: React.FC = () => {
         <Styled.AdsDetailsContainer>
           <Styled.AdsDetailsVideoInfoWrapper>
             <Styled.VideoWrapper>
-              <video
+              {/* <video
                 src={`${data?.adFileName}`}
                 controls
                 onPlay={handlePlayClick}
-              ></video>
+              ></video> */}
+              <YouTube
+                videoId={data?.adFileName.split("v=")[1]}
+                onReady={() => {}}
+                onPlay={handlePlayClick}
+                opts={{
+                  playerVars: {
+                    controls: 1,
+                  },
+                }}
+              />
             </Styled.VideoWrapper>
           </Styled.AdsDetailsVideoInfoWrapper>
           <Styled.AdsDetailsThumbWrapper>

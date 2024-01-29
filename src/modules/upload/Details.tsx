@@ -4,6 +4,7 @@ import { SERVER_URI } from "@/config";
 import { MdOutlineContentCopy, MdCheck } from "react-icons/md";
 import { toast } from "react-toastify";
 import axios from "axios";
+import YouTube from "react-youtube";
 
 type Props = {
   onSave: () => void;
@@ -79,7 +80,16 @@ export const Details: React.FC<Props> = ({ onSave, refresh }) => {
       </Styled.DetailsFormWrapper>
       <Styled.DetailsPreviewWrapper>
         <Styled.VideoWrapper>
-          <video src={form.videoLink} controls />
+          {/* <video src={form.videoLink} controls /> */}
+          <YouTube
+            videoId={form.videoLink.split("v=")[1]}
+            onReady={() => {}}
+            opts={{
+              playerVars: {
+                controls: 1,
+              },
+            }}
+          />
           <Styled.VideoInfoWrapper>
             <div>
               <span>Paste here your youtube link</span>

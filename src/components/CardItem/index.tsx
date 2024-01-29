@@ -3,6 +3,7 @@ import * as Styled from "./card.styles";
 import { VideoPlayIcon } from "..";
 import { getTimestamp } from "@/utils";
 import { useRouter } from "next/router";
+import YouTube from "react-youtube";
 
 type Props = {
   link: string;
@@ -33,7 +34,16 @@ export const CardItem: React.FC<Props> = ({
         }}
         onClick={() => router.push(`/ads/${id}`)}
       >
-        <video ref={videoRef} src={`${link}`} muted></video>
+        {/* <video ref={videoRef} src={`${link}`} muted></video> */}
+        <YouTube
+          videoId={link.split("v=")[1]}
+          onReady={() => {}}
+          opts={{
+            playerVars: {
+              controls: 1,
+            },
+          }}
+        />
         <VideoPlayIcon />
         <span>{getTimestamp(Number(duration))}</span>
       </Styled.VideoWrapper>
