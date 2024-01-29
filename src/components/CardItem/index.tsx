@@ -25,27 +25,15 @@ export const CardItem: React.FC<Props> = ({
   const videoRef = useRef<any>(null);
 
   return (
-    <Styled.CardItemWrapper>
-      <Styled.VideoWrapper
-        onMouseEnter={() => videoRef.current.play()}
-        onMouseLeave={() => {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-        }}
-        onClick={() => router.push(`/ads/${id}`)}
-      >
+    <Styled.CardItemWrapper onClick={() => router.push(`/ads/${id}`)}>
+      <Styled.VideoWrapper>
         {/* <video ref={videoRef} src={`${link}`} muted></video> */}
         <YouTube
           videoId={link.split("v=")[1]}
           onReady={() => {}}
-          opts={{
-            playerVars: {
-              controls: 1,
-            },
-          }}
         />
-        <VideoPlayIcon />
-        <span>{getTimestamp(Number(duration))}</span>
+        {/* <VideoPlayIcon /> */}
+        <div className="video-overlay"></div>
       </Styled.VideoWrapper>
       <Styled.VideoInfoWrapper>
         <div>

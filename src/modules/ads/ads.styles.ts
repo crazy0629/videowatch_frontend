@@ -60,7 +60,7 @@ export const VideoWrapper = styled.div`
   position: relative;
   width: 100%;
   padding-top: 60%;
-  video {
+  iframe, video {
     position: absolute;
     top: 0;
     width: 100%;

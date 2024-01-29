@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const CardItemWrapper = styled.div`
   width: 100%;
   border-radius: 10px;
+  cursor: pointer;
   height: fit-content;
   box-shadow: 0px 18px 40px 0px rgba(216, 215, 215, 0.25);
 `;
@@ -28,7 +29,16 @@ export const VideoWrapper = styled.div`
     font-weight: 700;
   }
 
-  video {
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  iframe, video {
     position: absolute;
     top: 0;
     height: 100%;
@@ -36,6 +46,7 @@ export const VideoWrapper = styled.div`
     border-radius: 10px;
     width: 100%;
     cursor: pointer;
+    left: 0;
   }
   svg {
     position: absolute;

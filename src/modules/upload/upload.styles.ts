@@ -118,7 +118,7 @@ export const VideoWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  video {
+  iframe, video {
     width: 100%;
     height: 250px;
     object-fit: contain;
